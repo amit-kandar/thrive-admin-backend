@@ -1,6 +1,6 @@
 // errorHandler.middleware.js
 
-const { APIError } = require("../utils/APIError.js");
+const APIError = require("../utils/APIError.js");
 const logger = require("../config/logger.js");
 
 module.exports = function errorHandler(err, req, res, next) {
