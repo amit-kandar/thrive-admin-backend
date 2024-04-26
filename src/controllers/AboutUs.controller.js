@@ -1,31 +1,34 @@
 const db = require('../config/sequelize.js');
+const APIError = require('../utils/APIError.js');
+const APIResponse = require('../utils/APIResponse.js');
 const AboutUsModel = db.AboutUsModel;
-const AboutUsPointsModel = db.AboutUsPointsModel;
 
-const aboutUs = async (req, res) => {
+const aboutUs = async (req, res, next) => {
     try {
-        const points = [
-            "point1",
-            "point2",
-            "point3",
-            "point4",
-            "point5",
-        ]
-        const points_data = points.join(', ');
+        const { title, sub_title, points, has_cta, cta_text, cover_image, image } = req.body;
 
-        const info = {
-            title: "This is title",
-            sub_title: "This is sub title",
-            points: points_data
+        const info = {};
+
+        if (title) info.title = title;
+        if (sub_title) info.sub_title = sub_title;
+        if (points) info.points = points.join(', ');
+        if (has_cta) info.has_cta = has_cta;
+        if (cta_text) info.cta_text = cta_text;
+        if (cover_image) info.cover_image = cover_image;
+        if (image) info.image = image;
+
+        const response = await AboutUsModel.create(info);
+        if (!response) {
+            throw new APIError(400, "Failed to add data");
         }
 
-        // Create the AboutUs entry
-        await AboutUsModel.create(info);
-
-        res.status(200).json({ message: 'Data added successfully' });
+        res.status(200).json(new APIResponse(
+            201,
+            response,
+            "Successfully added data"
+        ));
     } catch (error) {
-        console.error('Error creating AboutUs entry and points:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        next(error);
     }
 }
 
