@@ -2,11 +2,6 @@ const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
     const AboutUs = sequelize.define('AboutUs', {
-        id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
         title: {
             type: DataTypes.STRING
         },
@@ -16,10 +11,10 @@ module.exports = (sequelize) => {
         points: {
             type: DataTypes.STRING
         },
-        isCTAOn: {
+        has_cta: {
             type: DataTypes.BOOLEAN
         },
-        CTAText: {
+        cta_text: {
             type: DataTypes.STRING
         },
         cover_image: {
