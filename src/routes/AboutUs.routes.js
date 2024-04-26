@@ -3,6 +3,6 @@ const aboutUs = require('../controllers/AboutUs.controller');
 
 const router = express.Router();
 
-router.get('/test', aboutUs);
+router.put('/update', aboutUs);
 
 module.exports = router;

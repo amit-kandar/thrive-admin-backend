@@ -14,7 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Declare routes
-app.use('/api/about-us', require('./routes/AboutUs.routes.js'))
+app.use('/api/aboutus', require('./routes/AboutUs.routes.js'))
 
 app.use(errorHandler);
 
