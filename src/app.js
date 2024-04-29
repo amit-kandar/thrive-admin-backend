@@ -14,11 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 // Declare routes
-app.use('/api/aboutus', require('./routes/AboutUs.routes.js'))
+app.use('/api/v1/aboutus', require('./routes/AboutUs.routes.js'))
 
 app.use(errorHandler);
 
-app.get("/", (req, res) => {
+app.get("/api/v1", (req, res) => {
     res.status(200).json("Hello World");
 });
 
