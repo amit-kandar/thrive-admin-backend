@@ -22,6 +22,12 @@ module.exports = (sequelize) => {
         },
         image: {
             type: DataTypes.STRING
+        },
+        image_public_id: {
+            type: DataTypes.STRING,
+        },
+        cover_image_public_id: {
+            type: DataTypes.STRING
         }
     }, {
         tableName: 'about_us',
