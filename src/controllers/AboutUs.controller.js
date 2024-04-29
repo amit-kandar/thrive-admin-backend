@@ -65,9 +65,13 @@ const addData = async (req, res, next) => {
 
         // Insert data into the database
         const response = await AboutUsModel.create(info);
+
         if (!response) {
             throw new APIError(400, "Failed to add data");
         }
+
+        // change the points string to array
+        response.dataValues.points = response.dataValues.points.split(', ')
 
         res.status(201).json(new APIResponse(201, response, "Successfully added data"));
     } catch (error) {
@@ -142,9 +146,21 @@ const updateData = async (req, res, next) => {
             throw new APIError(400, "Failed to update data");
         }
 
+        // Find data by ID
+        let data = await AboutUsModel.findOne({ where: { id: 1 } });
+
+        // Check if data exists
+        if (!data) {
+            throw new APIError(404, "Data not found");
+        }
+
+        // change the points string to array
+        data.dataValues.points = data.dataValues.points.split(', ')
+
         // Respond with success message
         res.status(200).json(new APIResponse(
             200,
+            data,
             "Successfully updated data"
         ));
     } catch (error) {
