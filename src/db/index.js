@@ -21,7 +21,8 @@ const models = {
     About: require('../models/About.model.js')(sequelize),
     SocialMedia: require('../models/SocialMedia.model.js')(sequelize),
     PagePath: require('../models/PagePath.model.js')(sequelize),
-    Footer: require('../models/Footer.model.js')(sequelize)
+    Footer: require('../models/Footer.model.js')(sequelize),
+    Course: require('../models/Course.model.js')
 };
 
 // Define associations
