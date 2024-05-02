@@ -1,16 +1,14 @@
 const Joi = require('joi');
-const db = require('../config/sequelize.js');
+const { models } = require('../db');
 const APIError = require('../utils/APIError.js');
 const APIResponse = require('../utils/APIResponse.js');
 const uploadToCloudinary = require('../utils/cloudinary.js');
-
-const AboutUsModel = db.AboutUsModel;
 
 
 const addData = async (req, res, next) => {
     try {
         // Check if data already exists
-        const isDataPresent = await AboutUsModel.findOne({ where: { id: 1 } });
+        const isDataPresent = await models.About.findOne({ where: { id: 1 } });
         if (isDataPresent) {
             throw new APIError(400, "Data already exists");
         }
@@ -64,7 +62,7 @@ const addData = async (req, res, next) => {
         };
 
         // Insert data into the database
-        const response = await AboutUsModel.create(info);
+        const response = await models.About.create(info);
 
         if (!response) {
             throw new APIError(400, "Failed to add data");
@@ -137,7 +135,7 @@ const updateData = async (req, res, next) => {
         }
 
         // Update database with new information
-        const response = await AboutUsModel.update(info, {
+        const response = await models.About.update(info, {
             where: { id: 1 }
         });
 
@@ -147,7 +145,7 @@ const updateData = async (req, res, next) => {
         }
 
         // Find data by ID
-        let data = await AboutUsModel.findOne({ where: { id: 1 } });
+        let data = await models.About.findOne({ where: { id: 1 } });
 
         // Check if data exists
         if (!data) {
@@ -171,7 +169,7 @@ const updateData = async (req, res, next) => {
 const getData = async (req, res, next) => {
     try {
         // Find data by ID
-        let data = await AboutUsModel.findOne({ where: { id: 1 } });
+        let data = await models.About.findOne({ where: { id: 1 } });
 
         // Check if data exists
         if (!data) {
