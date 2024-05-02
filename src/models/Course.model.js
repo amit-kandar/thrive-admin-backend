@@ -12,9 +12,13 @@ module.exports = (sequelize) => {
             unique: true,
             allowNul: false
         },
-        image: {
+        image_url: {
             type: DataTypes.STRING,
             allowNul: false,
+        },
+        image_public_id: {
+            type: DataTypes.STRING,
+            allowNul: false
         },
         level: {
             type: DataTypes.STRING,
