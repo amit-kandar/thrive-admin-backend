@@ -1,6 +1,6 @@
-const { DataTypes } = require('sequelize');
+import { DataTypes } from 'sequelize';
 
-module.exports = (sequelize) => {
+const Footer = (sequelize) => {
     const Footer = sequelize.define('Footer', {
         company_name: {
             type: DataTypes.STRING,
@@ -19,3 +19,5 @@ module.exports = (sequelize) => {
     });
     return Footer;
 };
+
+export default Footer;

@@ -1,7 +1,7 @@
-const { DataTypes } = require('sequelize');
+import { DataTypes } from 'sequelize';
 
-module.exports = (sequelize) => {
-    const Social_Media = sequelize.define('social_media', {
+const SocialMedia = (sequelize) => {
+    const SocialMedia = sequelize.define('social_media', {
         platform: {
             type: DataTypes.STRING,
             allowNull: false
@@ -12,6 +12,8 @@ module.exports = (sequelize) => {
         }
     }, {
         timestamps: true
-    })
-    return Social_Media;
-}
+    });
+    return SocialMedia;
+};
+
+export default SocialMedia;

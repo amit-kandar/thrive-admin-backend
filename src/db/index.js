@@ -1,10 +1,16 @@
-const { Sequelize } = require('sequelize');
-const logger = require('../config/logger.js');
-const { HOST, USER, PASSWORD, DB } = process.env;
+import { Sequelize } from 'sequelize';
+import logger from '../config/logger.js';
 
-const sequelize = new Sequelize(DB, USER, PASSWORD, {
-    host: HOST,
-    dialect: 'mysql',
+const info = {
+    HOST: process.env.HOST,
+    USER: process.env.USER,
+    PASSWORD: process.env.PASSWORD,
+    DB: process.env.DB
+};
+
+const sequelize = new Sequelize(info.DB, info.USER, info.PASSWORD, {
+    host: info.HOST,
+    dialect: 'mysql'
 });
 
 async function connectToDatabase() {
@@ -17,12 +23,18 @@ async function connectToDatabase() {
     }
 }
 
+import AboutModel from '../models/About.model.js';
+import SocialMediaModel from '../models/SocialMedia.model.js';
+import PagePathModel from '../models/PagePath.model.js';
+import FooterModel from '../models/Footer.model.js';
+import CourseModel from '../models/Course.model.js';
+
 const models = {
-    About: require('../models/About.model.js')(sequelize),
-    SocialMedia: require('../models/SocialMedia.model.js')(sequelize),
-    PagePath: require('../models/PagePath.model.js')(sequelize),
-    Footer: require('../models/Footer.model.js')(sequelize),
-    Course: require('../models/Course.model.js')
+    About: AboutModel(sequelize),
+    SocialMedia: SocialMediaModel(sequelize),
+    PagePath: PagePathModel(sequelize),
+    Footer: FooterModel(sequelize),
+    Course: CourseModel(sequelize)
 };
 
 // Define associations
@@ -39,4 +51,4 @@ async function synchronizeDatabase() {
     }
 }
 
-module.exports = { sequelize, connectToDatabase, models, synchronizeDatabase };
+export { sequelize, connectToDatabase, models, synchronizeDatabase };

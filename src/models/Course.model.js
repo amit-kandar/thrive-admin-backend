@@ -1,31 +1,33 @@
-const { DataTypes } = require('sequelize');
+import { DataTypes } from 'sequelize';
 
-module.exports = (sequelize) => {
+const Course = (sequelize) => {
     const Course = sequelize.define('Course', {
         course_id: {
             type: DataTypes.STRING,
-            allowNul: false,
+            allowNull: false,
             unique: true
         },
         name: {
             type: DataTypes.STRING,
             unique: true,
-            allowNul: false
+            allowNull: false
         },
         image_url: {
             type: DataTypes.STRING,
-            allowNul: false,
+            allowNull: false,
         },
         image_public_id: {
             type: DataTypes.STRING,
-            allowNul: false
+            allowNull: false
         },
         level: {
             type: DataTypes.STRING,
-            allowNul: false
+            allowNull: false
         }
     }, {
         timestamps: true
     })
     return Course;
-}
+};
+
+export default Course;

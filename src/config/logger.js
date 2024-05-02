@@ -1,4 +1,4 @@
-const { createLogger, format, transports } = require('winston');
+import { createLogger, format, transports } from 'winston';
 
 const { combine, timestamp, printf, colorize } = format;
 
@@ -20,7 +20,6 @@ const customLevels = {
     }
 };
 
-
 const developmentLogger = () => {
     return createLogger({
         levels: customLevels.levels,
@@ -36,7 +35,7 @@ const developmentLogger = () => {
             new transports.Console(),
         ],
     });
-}
+};
 
 const productionLogger = () => {
     return createLogger({
@@ -53,7 +52,7 @@ const productionLogger = () => {
             new transports.Console(),
         ],
     });
-}
+};
 
 let logger = developmentLogger();
 
@@ -61,4 +60,4 @@ if (process.env.NODE_ENV === 'production') {
     logger = productionLogger();
 }
 
-module.exports = logger
+export default logger;

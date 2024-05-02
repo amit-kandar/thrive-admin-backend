@@ -1,6 +1,6 @@
-const { DataTypes } = require('sequelize');
+import { DataTypes } from 'sequelize';
 
-module.exports = (sequelize) => {
+const PagePath = (sequelize) => {
     const PagePath = sequelize.define('page_path', {
         label: {
             type: DataTypes.STRING,
@@ -12,6 +12,8 @@ module.exports = (sequelize) => {
         }
     }, {
         timestamps: true
-    })
+    });
     return PagePath;
-}
+};
+
+export default PagePath;

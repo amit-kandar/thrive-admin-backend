@@ -1,9 +1,8 @@
-const Joi = require('joi');
-const { models } = require('../db');
-const APIError = require('../utils/APIError.js');
-const APIResponse = require('../utils/APIResponse.js');
-const uploadToCloudinary = require('../utils/cloudinary.js');
-
+import Joi from 'joi';
+import { models } from '../db/index.js';
+import APIError from '../utils/APIError.js';
+import APIResponse from '../utils/APIResponse.js';
+import uploadToCloudinary from '../utils/cloudinary.js';
 
 const addData = async (req, res, next) => {
     try {
@@ -191,4 +190,4 @@ const getData = async (req, res, next) => {
     }
 };
 
-module.exports = { updateData, getData, addData };
+export { updateData, getData, addData };

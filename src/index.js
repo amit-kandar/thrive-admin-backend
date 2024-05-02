@@ -1,8 +1,8 @@
-require('dotenv').config();
-const app = require("./app.js");
-const cloudinary = require("cloudinary").v2;
-const logger = require("./config/logger.js");
-const db = require('./db')
+import "dotenv/config";
+import app from "./app.js";
+import { v2 as cloudinary } from "cloudinary";
+import logger from "./config/logger.js";
+import { connectToDatabase, synchronizeDatabase } from './db/index.js';
 
 const PORT = process.env.PORT || 8000;
 
@@ -14,21 +14,19 @@ cloudinary.config({
 });
 
 // Connect to the database
-db.connectToDatabase()
+connectToDatabase()
     .then(() => {
         // Sync models with database
-        return db.synchronizeDatabase();
+        return synchronizeDatabase();
     })
     .then(() => {
         app.on("error", err => {
             logger.error("Error: ", err);
         });
         app.listen(PORT, () => {
-            logger.info(`server is running at port ${PORT}`);
+            logger.info(`Server is running at port ${PORT}`);
         });
     })
     .catch(error => {
         logger.error('Error starting the server:', error);
     });
-
-

@@ -1,9 +1,9 @@
 // errorHandler.middleware.js
 
-const APIError = require("../utils/APIError.js");
-const logger = require("../config/logger.js");
+import APIError from "../utils/APIError.js";
+import logger from "../config/logger.js";
 
-module.exports = function errorHandler(err, req, res, next) {
+export default function errorHandler(err, req, res, next) {
     let statusCode = 500;
     let message = "Internal Server Error";
     let errors = [];

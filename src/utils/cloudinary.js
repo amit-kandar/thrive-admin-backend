@@ -1,6 +1,6 @@
-const cloudinary = require("cloudinary").v2;
-const fs = require('fs');
-const logger = require('../config/logger');
+import cloudinary from "cloudinary";
+import fs from 'fs';
+import logger from '../config/logger.js';
 
 const MAX_UPLOAD_TRIES = 2;
 
@@ -40,4 +40,4 @@ const uploadToCloudinary = async (filePath, folderName) => {
     return "Cloudinary file upload operation failed after multiple attempts!";
 };
 
-module.exports = uploadToCloudinary;
+export default uploadToCloudinary;

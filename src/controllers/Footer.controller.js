@@ -1,8 +1,8 @@
-const Joi = require('joi');
-const { models } = require('../db');
-const APIError = require('../utils/APIError');
-const APIResponse = require('../utils/APIResponse');
-const logger = require('../config/logger');
+import Joi from 'joi';
+import { models } from '../db/index.js';
+import APIError from '../utils/APIError.js';
+import APIResponse from '../utils/APIResponse.js';
+import logger from '../config/logger.js';
 
 // Handler to add data
 const addData = async (req, res, next) => {
@@ -227,4 +227,4 @@ const getData = async (req, res, next) => {
     }
 };
 
-module.exports = { addData, updateData, getData };
+export { addData, updateData, getData };

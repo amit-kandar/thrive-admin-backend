@@ -1,9 +1,10 @@
-const express = require('express');
-const { addData, updateData, getData } = require('../controllers/Footer.controller');
+import express from 'express';
+import { addData, updateData, getData } from '../controllers/Footer.controller.js';
+
 const router = express.Router();
 
 router.post('/', addData);
 router.put('/', updateData);
 router.get('/', getData);
 
-module.exports = router;
+export default router;

@@ -1,13 +1,8 @@
-const fs = require("fs");
-const path = require("path");
-const logger = require("../config/logger.js");
+import fs from "fs";
+import path from "path";
+import logger from "../config/logger.js";
 
 class APIError extends Error {
-    statusCode;
-    message;
-    errors;
-    data;
-
     constructor(
         statusCode,
         message = "Something went wrong",
@@ -42,4 +37,4 @@ class APIError extends Error {
     }
 }
 
-module.exports = APIError
+export default APIError;
