@@ -46,7 +46,9 @@ const addData = async (req, res, next) => {
             ]
         })
 
-        if (data) {
+        console.log(data.length >= 0);
+
+        if (data.length > 0) {
             throw new APIError(400, "Data already exists");
         }
 
@@ -79,7 +81,7 @@ const addData = async (req, res, next) => {
             }));
         }
 
-        res.status(201).json(new APIResponse(201, { data }, "Successfully added data."));
+        res.status(201).json(new APIResponse(201, "Successfully added data."));
     } catch (error) {
         next(error);
     }
@@ -202,7 +204,7 @@ const updateData = async (req, res, next) => {
 const getData = async (req, res, next) => {
     try {
         // Retrieve data from the database
-        const data = await models.Footer.findOne({
+        let data = await models.Footer.findOne({
             where: { id: 1 },
             include: [
                 {
@@ -212,6 +214,11 @@ const getData = async (req, res, next) => {
                 {
                     model: models.PagePath,
                     as: 'page_path'
+                },
+                {
+                    model: models.Course,
+                    as: 'course',
+                    limit: 4
                 }
             ]
         });
