@@ -40,6 +40,7 @@ const models = {
 // Define associations
 models.Footer.hasMany(models.SocialMedia, { as: 'social_media' });
 models.Footer.hasMany(models.PagePath, { as: 'page_path' });
+models.Footer.hasMany(models.Course, { as: 'course' });
 
 async function synchronizeDatabase() {
     try {
