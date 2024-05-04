@@ -32,7 +32,8 @@ const addCourse = async (req, res, next) => {
             name,
             image_url: url,
             image_public_id: public_id,
-            level
+            level,
+            FooterId: 1
         });
 
         if (!newCourse) throw new APIError(400, 'Failed to add the course. Please try again.');
