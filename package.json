@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js"
+    "start": "nodemon ./src/index.js",
+    "build": ""
   },
-  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -20,8 +20,8 @@
     "jsonwebtoken": "^9.0.2",
     "multer": "1.4.5-lts.1",
     "mysql2": "^3.9.7",
-    "nanoid": "^5.0.7",
     "sequelize": "^6.37.3",
+    "uuid": "^9.0.1",
     "winston": "^3.13.0"
   },
   "devDependencies": {
