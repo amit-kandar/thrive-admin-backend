@@ -1,5 +1,5 @@
-import { Sequelize } from 'sequelize';
-import logger from '../config/logger.js';
+const { Sequelize } = require('sequelize');
+const logger = require('../config/logger.js');
 
 const info = {
     HOST: process.env.HOST,
@@ -23,24 +23,29 @@ async function connectToDatabase() {
     }
 }
 
-import AboutModel from '../models/About.model.js';
-import SocialMediaModel from '../models/SocialMedia.model.js';
-import PagePathModel from '../models/PagePath.model.js';
-import FooterModel from '../models/Footer.model.js';
-import CourseModel from '../models/Course.model.js';
+const AboutModel = require('../models/About.model.js')(sequelize);
+const SocialMediaModel = require('../models/SocialMedia.model.js')(sequelize);
+const PagePathModel = require('../models/PagePath.model.js')(sequelize);
+const FooterModel = require('../models/Footer.model.js')(sequelize);
+const CourseModel = require('../models/Course.model.js')(sequelize);
+const PriceModel = require('../models/Pricing.model.js')(sequelize);
+const PriceFeaturesList = require('../models/PriceFeaturesList.model.js')(sequelize);
 
 const models = {
-    About: AboutModel(sequelize),
-    SocialMedia: SocialMediaModel(sequelize),
-    PagePath: PagePathModel(sequelize),
-    Footer: FooterModel(sequelize),
-    Course: CourseModel(sequelize)
+    About: AboutModel,
+    SocialMedia: SocialMediaModel,
+    PagePath: PagePathModel,
+    Footer: FooterModel,
+    Course: CourseModel,
+    Price: PriceModel,
+    PriceFeaturesList: PriceFeaturesList
 };
 
 // Define associations
 models.Footer.hasMany(models.SocialMedia, { as: 'social_media' });
 models.Footer.hasMany(models.PagePath, { as: 'page_path' });
 models.Footer.hasMany(models.Course, { as: 'course' });
+models.Price.hasMany(models.PriceFeaturesList, { as: 'PriceFeaturesList' });
 
 async function synchronizeDatabase() {
     try {
@@ -52,4 +57,4 @@ async function synchronizeDatabase() {
     }
 }
 
-export { sequelize, connectToDatabase, models, synchronizeDatabase };
+module.exports = { sequelize, connectToDatabase, models, synchronizeDatabase };

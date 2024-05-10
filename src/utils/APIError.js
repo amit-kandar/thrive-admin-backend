@@ -1,6 +1,6 @@
-import fs from "fs";
-import path from "path";
-import logger from "../config/logger.js";
+const fs = require("fs");
+const path = require("path");
+const logger = require("../config/logger.js");
 
 class APIError extends Error {
     constructor(
@@ -37,4 +37,4 @@ class APIError extends Error {
     }
 }
 
-export default APIError;
+module.exports = APIError;

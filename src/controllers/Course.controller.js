@@ -1,10 +1,10 @@
-import { nanoid } from 'nanoid';
-import Joi from 'joi';
-import APIError from '../utils/APIError.js';
-import APIResponse from '../utils/APIResponse.js';
-import { models, sequelize } from '../db/index.js';
-import uploadToCloudinary from '../utils/cloudinary.js';
-import cloudinary from 'cloudinary';
+const Joi = require('joi');
+const APIError = require('../utils/APIError.js');
+const APIResponse = require('../utils/APIResponse.js');
+const { models, sequelize } = require('../db/index.js');
+const uploadToCloudinary = require('../utils/cloudinary.js');
+const cloudinary = require('cloudinary');
+const { generateSixDigitId } = require('../utils/customFunction.js');
 
 const addCourse = async (req, res, next) => {
     try {
@@ -16,7 +16,7 @@ const addCourse = async (req, res, next) => {
         const { error } = schema.validate({ name, level });
         if (error) throw new APIError(400, "All fields are required with valid data.");
 
-        const courseId = nanoid(6);
+        const courseId = generateSixDigitId(6);
         const existingCourse = await models.Course.findOne({ where: { name } });
         if (existingCourse) throw new APIError(400, "Course already exists");
 
@@ -101,4 +101,4 @@ const getCourse = async (req, res, next) => {
     }
 };
 
-export { addCourse, updateCourse, getCourse };
+module.exports = { addCourse, updateCourse, getCourse };

@@ -1,4 +1,4 @@
-import logger from "../config/logger.js";
+const logger = require("../config/logger.js");
 
 class APIResponse {
     constructor(statusCode, data, message = "Success") {
@@ -12,4 +12,4 @@ class APIResponse {
     }
 }
 
-export default APIResponse;
+module.exports = APIResponse;

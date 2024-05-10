@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+const { DataTypes } = require('sequelize');
 
 const About = (sequelize) => {
     const About = sequelize.define('About', {
@@ -44,4 +44,4 @@ const About = (sequelize) => {
     return About;
 };
 
-export default About;
+module.exports = About;

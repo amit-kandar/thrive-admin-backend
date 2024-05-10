@@ -1,33 +1,32 @@
 const { DataTypes } = require('sequelize');
 
-const Course = (sequelize) => {
-    const Course = sequelize.define('Course', {
-        course_id: {
+const Pricing = (sequelize) => {
+    const Pricing = sequelize.define('Pricing', {
+        level: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true
         },
-        name: {
-            type: DataTypes.STRING,
-            unique: true,
+        discount: {
+            type: DataTypes.INTEGER,
             allowNull: false
         },
-        image_url: {
-            type: DataTypes.STRING,
-            allowNull: false,
+        price: {
+            type: DataTypes.INTEGER,
+            allowNull: false
         },
-        image_public_id: {
+        subscribe_button: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        level: {
+        duration: {
             type: DataTypes.STRING,
             allowNull: false
         }
     }, {
         timestamps: true
     })
-    return Course;
+    return Pricing;
 };
 
-module.exports = Course;
+module.exports = Pricing;

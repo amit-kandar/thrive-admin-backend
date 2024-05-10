@@ -1,8 +1,8 @@
-import Joi from 'joi';
-import { models } from '../db/index.js';
-import APIError from '../utils/APIError.js';
-import APIResponse from '../utils/APIResponse.js';
-import logger from '../config/logger.js';
+const Joi = require('joi');
+const { models } = require('../db/index.js');
+const APIError = require('../utils/APIError.js');
+const APIResponse = require('../utils/APIResponse.js');
+const logger = require('../config/logger.js');
 
 // Handler to add data
 const addData = async (req, res, next) => {
@@ -45,8 +45,6 @@ const addData = async (req, res, next) => {
                 }
             ]
         })
-
-        console.log(data.length >= 0);
 
         if (data.length > 0) {
             throw new APIError(400, "Data already exists");
@@ -234,4 +232,4 @@ const getData = async (req, res, next) => {
     }
 };
 
-export { addData, updateData, getData };
+module.exports = { addData, updateData, getData };

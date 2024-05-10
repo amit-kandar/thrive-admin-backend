@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+const { DataTypes } = require('sequelize');
 
 const PagePath = (sequelize) => {
     const PagePath = sequelize.define('page_path', {
@@ -16,4 +16,4 @@ const PagePath = (sequelize) => {
     return PagePath;
 };
 
-export default PagePath;
+module.exports = PagePath;

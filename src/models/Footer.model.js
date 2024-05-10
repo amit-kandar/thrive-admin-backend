@@ -1,4 +1,4 @@
-import { DataTypes } from 'sequelize';
+const { DataTypes } = require('sequelize');
 
 const Footer = (sequelize) => {
     const Footer = sequelize.define('Footer', {
@@ -20,4 +20,4 @@ const Footer = (sequelize) => {
     return Footer;
 };
 
-export default Footer;
+module.exports = Footer;

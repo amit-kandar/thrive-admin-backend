@@ -1,6 +1,6 @@
-import express from 'express';
-import { getData, addData, updateData } from '../controllers/AboutUs.controller.js';
-import upload from '../middlewares/multer.middleware.js';
+const express = require('express');
+const { getData, addData, updateData } = require('../controllers/AboutUs.controller.js');
+const upload = require('../middlewares/multer.middleware.js');
 
 const router = express.Router();
 
@@ -16,4 +16,4 @@ router.put('/', upload.fields([
     { name: "cover_image", maxCount: 1 }
 ]), updateData);
 
-export default router;
+module.exports = router;
