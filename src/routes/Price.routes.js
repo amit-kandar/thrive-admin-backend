@@ -1,9 +1,10 @@
 const express = require('express');
-const { addPricePlan, updatePricePlan, getPricePlanDetailsById } = require('../controllers/Price.controller.js');
+const { addPricePlan, updatePricePlan, getPricePlanDetailsById, getPricePlanDetails } = require('../controllers/Price.controller.js');
 const router = express.Router();
 
 router.post('/', addPricePlan);
 router.put('/', updatePricePlan);
-router.get('/', getPricePlanDetailsById);
+router.get('/:id', getPricePlanDetailsById);
+router.get('/', getPricePlanDetails);
 
 module.exports = router;

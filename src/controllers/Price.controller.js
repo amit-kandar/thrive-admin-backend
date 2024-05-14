@@ -184,4 +184,29 @@ const getPricePlanDetailsById = async (req, res, next) => {
     }
 };
 
-module.exports = { addPricePlan, updatePricePlan, getPricePlanDetailsById };
+const getPricePlanDetails = async (req, res, next) => {
+    try {
+        const response = await models.Price.findAll({
+            include: [
+                {
+                    model: models.PriceFeaturesList,
+                    as: 'PriceFeaturesList'
+                }
+            ]
+        });
+
+        if (!response) {
+            throw new APIError(404, "Price plan not found");
+        }
+
+        res.status(200).json(new APIResponse(
+            200,
+            response,
+            "Successfully retrieved the data"
+        ));
+    } catch (error) {
+        next(error);
+    }
+};
+
+module.exports = { addPricePlan, updatePricePlan, getPricePlanDetailsById, getPricePlanDetails };
