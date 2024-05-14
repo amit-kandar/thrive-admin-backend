@@ -154,7 +154,7 @@ const updatePricePlan = async (req, res, next) => {
     }
 };
 
-const getPricePlanDetails = async (req, res, next) => {
+const getPricePlanDetailsById = async (req, res, next) => {
     try {
         const pricePlanId = req.params.id || req.body.id;
 
@@ -184,4 +184,4 @@ const getPricePlanDetails = async (req, res, next) => {
     }
 };
 
-module.exports = { addPricePlan, updatePricePlan, getPricePlanDetails };
+module.exports = { addPricePlan, updatePricePlan, getPricePlanDetailsById };
