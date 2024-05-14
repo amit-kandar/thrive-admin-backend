@@ -28,7 +28,7 @@ const SocialMediaModel = require('../models/SocialMedia.model.js')(sequelize);
 const PagePathModel = require('../models/PagePath.model.js')(sequelize);
 const FooterModel = require('../models/Footer.model.js')(sequelize);
 const CourseModel = require('../models/Course.model.js')(sequelize);
-const PriceModel = require('../models/Pricing.model.js')(sequelize);
+const PriceModel = require('../models/Price.model.js')(sequelize);
 const PriceFeaturesList = require('../models/PriceFeaturesList.model.js')(sequelize);
 
 const models = {
