@@ -27,24 +27,24 @@ const addData = async (req, res, next) => {
         }
 
         // Check if files are present
-        if (!req.files || !req.files.cover_image || !req.files.image) {
+        if (!req.files || !req.files.cover_image || !req.files.about_image) {
             throw new APIError(400, "Images are required!");
         }
 
         // Upload files in parallel
-        const [coverImageResponse, imageResponse] = await Promise.all([
+        const [coverImageResponse, aboutImageResponse] = await Promise.all([
             uploadToCloudinary(req.files.cover_image[0].path, "about_us"),
-            uploadToCloudinary(req.files.image[0].path, "about_us")
+            uploadToCloudinary(req.files.about_image[0].path, "about_us")
         ]);
 
         // Check if file uploads were successful
-        if (typeof coverImageResponse === 'string' || typeof imageResponse === 'string') {
+        if (typeof coverImageResponse === 'string' || typeof aboutImageResponse === 'string') {
             throw new APIError(400, "File upload failed.");
         }
 
         // Extract file URLs and public IDs
         const { url: cover_image_url, public_id: cover_image_public_id } = coverImageResponse;
-        const { url: image_url, public_id: image_public_id } = imageResponse;
+        const { url: about_image_url, public_id: about_image_public_id } = aboutImageResponse;
 
         // Create data object
         const new_points = Array.isArray(req.body.points) ? req.body.points.join(', ') : req.body.points;
@@ -56,8 +56,8 @@ const addData = async (req, res, next) => {
             cta_text: req.body.cta_text,
             cover_image: cover_image_url,
             cover_image_public_id,
-            image: image_url,
-            image_public_id
+            about_image: about_image_url,
+            about_image_public_id
         };
 
         // Insert data into the database
@@ -82,28 +82,36 @@ const updateData = async (req, res, next) => {
         const schema = Joi.object({
             title: Joi.string().optional(),
             sub_title: Joi.string().optional(),
-            points: Joi.string().optional(),
+            points: Joi.array().items(
+                Joi.string().optional(),
+            ),
             has_cta: Joi.boolean().optional(),
             cta_text: Joi.string().optional(),
         });
 
         // Validate request body against the schema
-        const { error, value: validatedData } = schema.validate(req.body);
+        const { error, value: validatedData } = schema.validate({
+            title: req.body.title,
+            sub_title: req.body.sub_title,
+            points: req.body.points,
+            has_cta: req.body.has_cta,
+            cta_text: req.body.cta_text
+        });
 
         // If validation fails, throw an error
         if (error) {
             throw new APIError(400, "Validation error: " + error.details.map(d => d.message).join(', '));
         }
 
-        const { title, sub_title, points, has_cta, cta_text } = validatedData;
-        const info = {};
-
         // Set validated data
-        if (title) info.title = title;
-        if (sub_title) info.sub_title = sub_title;
-        if (points) info.points = Array.isArray(points) ? points.join(', ') : points;
-        if (has_cta) info.has_cta = has_cta;
-        if (cta_text) info.cta_text = cta_text;
+        const info = {};
+        if (validatedData.title) info.title = validatedData.title;
+        if (validatedData.sub_title) info.sub_title = validatedData.sub_title;
+        if (validatedData.points) {
+            info.points = Array.isArray(validatedData.points) ? validatedData.points.join(', ') : validatedData.points;
+        }
+        if (validatedData.has_cta !== null) info.has_cta = validatedData.has_cta;
+        if (validatedData.cta_text) info.cta_text = validatedData.cta_text;
 
         // Upload cover image if present
         if (req.files && req.files.cover_image && req.files.cover_image[0]) {
@@ -115,7 +123,7 @@ const updateData = async (req, res, next) => {
             }
 
             const { url: cover_image_url, public_id: cover_image_public_id } = coverImageResponse;
-            info.cover_image = cover_image_url;
+            info.cover_image_url = cover_image_url;
             info.cover_image_public_id = cover_image_public_id;
         }
 
@@ -129,7 +137,7 @@ const updateData = async (req, res, next) => {
             }
 
             const { url: image_url, public_id: image_public_id } = imageResponse;
-            info.image = image_url;
+            info.image_url = image_url;
             info.image_public_id = image_public_id;
         }
 
@@ -151,8 +159,10 @@ const updateData = async (req, res, next) => {
             throw new APIError(404, "Data not found");
         }
 
-        // change the points string to array
-        data.dataValues.points = data.dataValues.points.split(', ')
+        // Change the points string to array
+        if (data.points) {
+            data.points = data.points.split(', ');
+        }
 
         // Respond with success message
         res.status(200).json(new APIResponse(
