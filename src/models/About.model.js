@@ -26,11 +26,11 @@ const About = (sequelize) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        image: {
+        about_image: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        image_public_id: {
+        about_image_public_id: {
             type: DataTypes.STRING,
             allowNull: false
         },
